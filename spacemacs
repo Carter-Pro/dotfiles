@@ -25,7 +25,7 @@ values."
      ;; ----------------------------------------------------------------
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
-                      :disabled-for org)
+                      :disabled-for org git)
      ;; better-defaults
      ;; all the program language support which i need.
      c-c++
