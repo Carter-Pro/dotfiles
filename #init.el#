@@ -206,6 +206,12 @@
 
 ;; config org-ref
 (add-hook 'org-ref-clean-bibtex-entry-hook 'org-ref-replace-nonascii)
-
+(setq bibtex-autokey-year-length 4
+      bibtex-autokey-name-year-separator "-"
+      bibtex-autokey-year-title-separator "-"
+      bibtex-autokey-titleword-separator "-"
+      bibtex-autokey-titlewords 2
+      bibtex-autokey-titlewords-stretch 1
+      bibtex-autokey-titleword-length 5)
 ;; add wrap for org-mode
 (add-hook 'org-mode-hook (lambda()(setq truncate-lines nil)))
