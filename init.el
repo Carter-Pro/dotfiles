@@ -236,8 +236,9 @@ same directory as the org-buffer and insert a link to this file."
   (setq filename
         (concat
          (make-temp-name
-          (concat (file-name-nondirectory (buffer-file-name))
-                  "_imgs/"
+	  "use file-name-sans-extension to ignore file extension."
+          (concat (file-name-nondirectory (file-name-sans-extension buffer-file-name))
+                  "/"
                   (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
   (unless (file-exists-p (file-name-directory filename))
     (make-directory (file-name-directory filename)))
