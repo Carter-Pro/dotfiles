@@ -31,7 +31,8 @@
 			  smartparens
 			  exec-path-from-shell
 			  org-ref
-			  helm-bibtex 
+			  helm-bibtex
+			  evil
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -97,10 +98,12 @@
 
 ;; turn on global-company-mode
 (global-company-mode t)
+;; turn off company-mode for org-mode
+(setq company-global-modes '(not org-mode))
 
 ;; change font
 ;;(set-frame-font "Source Code Pro" t)
-(set-face-attribute 'default nil :height 130)
+(set-face-attribute 'default nil :height 160)
 
 ;; close the start screen
 (setq inhibit-splash-screen t)
@@ -180,7 +183,7 @@
 ;; alternative
 ;; (setq helm-bibtex-pdf-open-function 'org-open-file)
 
-(setq helm-bibtex-notes-path "/Users/carter/Documents/OneDrive/Papers/refnotes.org")
+(setq helm-bibtex-notes-path "/Users/carter/Documents/OneDrive/Papers/helm-bibtex-notes")
 
 
 ;; equals setq-default xxx
@@ -205,7 +208,20 @@
 
 
 ;; config org-ref
-(add-hook 'org-ref-clean-bibtex-entry-hook 'org-ref-replace-nonascii)
+;;(add-hook 'org-ref-clean-bibtex-entry-hook 'org-ref-replace-nonascii)
+(setq bibtex-autokey-year-length 4
+      bibtex-autokey-name-year-separator "-"
+      bibtex-autokey-year-title-separator "-"
+      bibtex-autokey-titleword-separator "-"
+      bibtex-autokey-titlewords 2
+      bibtex-autokey-titlewords-stretch 1
+      bibtex-autokey-titleword-length 5)
 
+;; key binding for open note
+(global-set-key (kbd "C-c n") 'org-ref-open-bibtex-notes)
 ;; add wrap for org-mode
 (add-hook 'org-mode-hook (lambda()(setq truncate-lines nil)))
+
+;; config evil
+;;(require 'evil)
+;;(evil-mode 1)
