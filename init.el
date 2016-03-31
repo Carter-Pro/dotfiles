@@ -36,6 +36,7 @@
 			  fcitx
 			  dash
 			  chinese-fonts-setup
+			  magit
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -198,7 +199,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(cfs--current-profile-name "program" t)
+ '(cfs--current-profile-name "word" t)
  '(company-idle-delay 0.08)
  '(company-minimum-prefix-length 3)
  '(custom-safe-themes
@@ -219,7 +220,10 @@
   :DOI: %D
   :URL: %U
  :END:
-"))
+")
+ '(package-selected-packages
+   (quote
+    (magit company zenburn-theme solarized-theme spacemacs-theme monokai-theme hungry-delete swiper counsel smartparens exec-path-from-shell org-ref helm-bibtex evil fcitx dash chinese-fonts-setup))))
 
 
 (custom-set-faces
@@ -317,3 +321,5 @@ same directory as the org-buffer and insert a link to this file."
 (require 'chinese-fonts-setup)
 (setq cfs-profiles
     '("program" "org-mode" "word"))
+;; config magit
+(global-set-key (kbd "C-x g") 'magit-status)
