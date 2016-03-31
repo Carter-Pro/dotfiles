@@ -33,6 +33,9 @@
 			  org-ref
 			  helm-bibtex
 			  evil
+			  fcitx
+			  dash
+			  chinese-fonts-setup
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -102,8 +105,6 @@
 (setq company-global-modes '(not org-mode))
 
 ;; change font
-;;(set-frame-font "Source Code Pro" t)
-(set-face-attribute 'default nil :height 160)
 
 ;; close the start screen
 (setq inhibit-splash-screen t)
@@ -135,22 +136,27 @@
 (setq org-src-fontify-natively t)
 
 ;;define a function to open the init file
-(defun open-my-init-file()
+(defun carter/open-init-file()
   (interactive)
   (find-file "~/Github/dotfiles/init.el"))
-(global-set-key (kbd "<f2>") 'open-my-init-file)
+(global-set-key (kbd "<f2>") 'carter/open-init-file)
 
 ;; define a function to open the gtd.org
-(defun open-my-gtd-file()
+(defun carter/open-gtd-file()
   (interactive)
   (find-file "/Users/carter/Documents/OneDrive/org-notes/gtd.org"))
-(global-set-key (kbd "<f3>") 'open-my-gtd-file)
+(global-set-key (kbd "<f3>") 'carter/open-gtd-file)
 
 ;; define a function to open the refnotes.org
-(defun open-my-refnotes-file()
+(defun carter/open-refnotes-file()
   (interactive)
   (find-file "/Users/carter/Documents/OneDrive/Papers/refnotes.org"))
-(global-set-key (kbd "<f4>") 'open-my-refnotes-file)
+(global-set-key (kbd "<f4>") 'carter/open-refnotes-file)
+
+(defun carter/open-reference-file()
+  (interactive)
+  (find-file "/Users/carter/Documents/OneDrive/Papers/references.bib"))
+(global-set-key (kbd "<f5>") 'carter/open-reference-file)
 
 ;; key binding
 (global-set-key (kbd "C-h C-f") 'find-function)
@@ -192,11 +198,28 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cfs--current-profile-name "program" t)
  '(company-idle-delay 0.08)
  '(company-minimum-prefix-length 3)
  '(custom-safe-themes
    (quote
-    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default))))
+    ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(org-agenda-files
+   (quote
+    ("~/Documents/OneDrive/Papers/Papers/鏂囩尞缁艰堪鎶ュ憡.org" "/Users/carter/Documents/OneDrive/org-notes/gtd.org" "/Users/carter/Documents/OneDrive/org-notes/org-ref.org")))
+ '(org-ref-note-title-format
+   "** TODO [#C] %y - %t
+ :PROPERTIES:
+  :Custom_ID: %k
+  :AUTHOR: %9a
+  :JOURNAL: %j
+  :YEAR: %y
+  :VOLUME: %v
+  :PAGES: %p
+  :DOI: %D
+  :URL: %U
+ :END:
+"))
 
 
 (custom-set-faces
@@ -223,6 +246,7 @@
 (add-hook 'org-mode-hook (lambda()(setq truncate-lines nil)))
 
 ;; config evil
+
 ;;(require 'evil)
 ;;(evil-mode 1)
 
@@ -251,3 +275,45 @@ same directory as the org-buffer and insert a link to this file."
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
 (global-set-key (kbd "C-p") 'my-org-screenshot)
+
+;; config fcitx
+(add-to-list 'load-path "/Users/carter/.emacs.d/elpa/fcitx-20160320.2220/fcitx.el")
+(require 'fcitx)
+
+;; sort org-mode by priority
+(require 'dash)
+
+(defun todo-to-int (todo)
+    (first (-non-nil
+            (mapcar (lambda (keywords)
+                      (let ((todo-seq
+                             (-map (lambda (x) (first (split-string  x "(")))
+                                   (rest keywords)))) 
+                        (cl-position-if (lambda (x) (string= x todo)) todo-seq)))
+                    org-todo-keywords))))
+
+(defun my/org-sort-key ()
+  (let* ((todo-max (apply #'max (mapcar #'length org-todo-keywords)))
+         (todo (org-entry-get (point) "TODO"))
+         (todo-int (if todo (todo-to-int todo) todo-max))
+         (priority (org-entry-get (point) "PRIORITY"))
+         (priority-int (if priority (string-to-char priority) org-default-priority)))
+    (format "%03d %03d" todo-int priority-int)
+    ))
+
+(defun carter/org-sort-entries ()
+  (interactive)
+  (org-sort-entries nil ?f #'carter/org-sort-key))
+
+;;设置默认读入文件编码
+
+(prefer-coding-system 'utf-8)
+
+;;设置写入文件编码
+
+(setq default-buffer-file-coding-system 'utf-8)
+
+;; config chinese-fonts-setup
+(require 'chinese-fonts-setup)
+(setq cfs-profiles
+    '("program" "org-mode" "word"))

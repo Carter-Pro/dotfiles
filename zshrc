@@ -103,4 +103,3 @@ alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
 alias -s g++='clang++ -std=c++11 -stdlib=libc++ -Weverything -Wc++11-extensions'
 alias sshserver='ssh root@121.42.160.119'
-export PATH=$PATH:/Library/TeX/texbin
