@@ -37,6 +37,7 @@
 			  dash
 			  chinese-fonts-setup
 			  magit
+			  org-pomodoro
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -214,7 +215,7 @@
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
  '(org-agenda-files
    (quote
-    ("~/Documents/OneDrive/Papers/Papers/鏂囩尞缁艰堪鎶ュ憡.org" "/Users/carter/Documents/OneDrive/org-notes/gtd.org" "/Users/carter/Documents/OneDrive/org-notes/org-ref.org")))
+    ("/Users/carter/Documents/OneDrive/org-notes/gtd.org" "/Users/carter/Documents/OneDrive/org-notes/org-ref.org")))
  '(org-ref-note-title-format
    "** TODO [#C] %y - %t
  :PROPERTIES:
@@ -330,3 +331,6 @@ same directory as the org-buffer and insert a link to this file."
 ;;    '("program" "org-mode" "word"))
 ;; config magit
 (global-set-key (kbd "C-x g") 'magit-status)
+
+;; config org-pomodoro
+(global-set-key (kbd "C-p") 'org-pomodoro)
