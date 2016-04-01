@@ -106,7 +106,14 @@
 (setq company-global-modes '(not org-mode))
 
 ;; change font
+;; Setting English Font
+(set-face-attribute 'default nil :font "Monaco 18")
 
+;; Chinese Font
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font)
+                    charset (font-spec :family "STFangsong"
+                                       :size 22)))
 ;; close the start screen
 (setq inhibit-splash-screen t)
 
@@ -318,8 +325,8 @@ same directory as the org-buffer and insert a link to this file."
 (setq default-buffer-file-coding-system 'utf-8)
 
 ;; config chinese-fonts-setup
-(require 'chinese-fonts-setup)
-(setq cfs-profiles
-    '("program" "org-mode" "word"))
+;;(require 'chinese-fonts-setup)
+;;(setq cfs-profiles
+;;    '("program" "org-mode" "word"))
 ;; config magit
 (global-set-key (kbd "C-x g") 'magit-status)
