@@ -259,7 +259,7 @@
 
 ;; config evil
 (require 'evil)
-(evil-mode 1)
+;;(evil-mode 1)
 
 ;; screenshot
 ;; http://stackoverflow.com/questions/17435995/paste-an-image-on-clipboard-to-emacs-org-mode-file-without-saving-it
@@ -290,7 +290,6 @@ same directory as the org-buffer and insert a link to this file."
 ;; config fcitx
 (add-to-list 'load-path "/Users/carter/.emacs.d/elpa/fcitx-20160320.2220/fcitx.el")
 (require 'fcitx)
-(fcitx-evil-turn-on)
 ;; sort org-mode by priority
 (require 'dash)
 
@@ -333,3 +332,10 @@ same directory as the org-buffer and insert a link to this file."
 
 ;; config org-pomodoro
 (global-set-key (kbd "C-p") 'org-pomodoro)
+
+;; org clock
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+;; org agenda
+
