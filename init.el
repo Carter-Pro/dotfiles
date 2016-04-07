@@ -38,6 +38,7 @@
 			  chinese-fonts-setup
 			  magit
 			  org-pomodoro
+			  emacs-eclim
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -231,7 +232,7 @@
 ")
  '(package-selected-packages
    (quote
-    (magit company zenburn-theme solarized-theme spacemacs-theme monokai-theme hungry-delete swiper counsel smartparens exec-path-from-shell org-ref helm-bibtex evil fcitx dash chinese-fonts-setup))))
+    (emacs-eclim magit company zenburn-theme solarized-theme spacemacs-theme monokai-theme hungry-delete swiper counsel smartparens exec-path-from-shell org-ref helm-bibtex evil fcitx dash chinese-fonts-setup))))
 
 
 (custom-set-faces
@@ -471,15 +472,74 @@ belongs as a list."
   )
 
 ;; org-pomodoro notification
-'org-pomodoro-finished-hook
+(add-hook 'org-pomodoro-finished-hook
            (lambda ()
-             (codefalling//notify "Pomodoro completed!" "Time for a break.")))
+             (carter/notify "Pomodoro completed!" "Time for a break.")))
 (add-hook 'org-pomodoro-break-finished-hook
            (lambda ()
-             (codefalling//notify "Pomodoro Short Break Finished" "Ready for Another?")))
+             (carter/notify "Pomodoro Short Break Finished" "Ready for Another?")))
 (add-hook 'org-pomodoro-long-break-finished-hook
            (lambda ()
-             (codefalling//notify "Pomodoro Long Break Finished" "Ready for Another?")))
+             (carter/notify "Pomodoro Long Break Finished" "Ready for Another?")))
 (add-hook 'org-pomodoro-killed-hook
            (lambda ()
-             (codefalling//notify "Pomodoro Killed" "One does not simply kill a pomodoro!")))
+             (carter/notify "Pomodoro Killed" "One does not simply kill a pomodoro!")))
+(defun carter/notify (title message)
+  (let ((terminal-notifier-command (executable-find "terminal-notifier")))))
+
+;; when subtasks finished, task reset
+(setq org-default-properties (cons "RESET_SUBTASKS" org-default-properties))
+
+(defun org-reset-subtask-state-subtree ()
+  "Reset all subtasks in an entry subtree."
+  (interactive "*")
+  (if (org-before-first-heading-p)
+      (error "Not inside a tree")
+    (save-excursion
+      (save-restriction
+    (org-narrow-to-subtree)
+    (org-show-subtree)
+    (goto-char (point-min))
+        (beginning-of-line 2)
+        (narrow-to-region (point) (point-max))
+        (org-map-entries
+         '(when (member (org-get-todo-state) org-done-keywords)
+            (org-todo (car org-todo-keywords))))
+        ))))
+
+(defun org-reset-subtask-state-maybe ()
+  "Reset all subtasks in an entry if the `RESET_SUBTASKS' property is set"
+  (interactive "*")
+  (if (org-entry-get (point) "RESET_SUBTASKS")
+      (org-reset-subtask-state-subtree)))
+
+(defun org-subtask-reset ()
+  (when (member org-state org-done-keywords) ;; org-state dynamically bound in org.el/org-todo
+    (org-reset-subtask-state-maybe)
+    (org-update-statistics-cookies t)))
+
+(add-hook 'org-after-todo-state-change-hook 'org-subtask-reset)
+
+;;
+(defun org-summary-todo (n-done n-not-done)
+    "Switch entry to DONE when all subentries are done, to TODO otherwise."
+    (let (org-log-done org-log-states)  ; turn off logging
+      (org-todo (if (= n-not-done 0) "DONE" "TODO")))) 
+
+(add-hook'org-after-todo-statistics-hook 'org-summary-todo)
+
+
+;; config emacs-eclim
+(require 'eclim)
+(global-eclim-mode)
+(custom-set-variables
+  '(eclim-eclipse-dirs '("~/Applications/Eclipse.app/Contents/MacOS/eclipse"))
+  '(eclim-executable "~/Applications/Eclipse.app/Contents/MacOS/eclipse/eclim"))
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+
+(require 'company)
+(require 'company-emacs-eclim)
+(company-emacs-eclim-setup)
+(global-company-mode t)
