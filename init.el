@@ -286,7 +286,7 @@ same directory as the org-buffer and insert a link to this file."
   ; insert into file if correctly taken
   (if (file-exists-p filename)
       (insert (concat "[[file:" filename "]]"))))
-(global-set-key (kbd "C-p") 'my-org-screenshot)
+(global-set-key (kbd "C-c s") 'my-org-screenshot)
 
 ;; config fcitx
 (add-to-list 'load-path "/Users/carter/.emacs.d/elpa/fcitx-20160320.2220/fcitx.el")
@@ -543,3 +543,17 @@ belongs as a list."
 (require 'company-emacs-eclim)
 (company-emacs-eclim-setup)
 (global-company-mode t)
+
+
+;; replace \emsp to \__ in org-clock-report
+;;http://emacs.stackexchange.com/questions/9528/is-it-possible-to-remove-emsp-from-clock-report-but-preserve-indentation
+(defun my-org-clocktable-indent-string (level)
+  (if (= level 1)
+      ""
+    (let ((str "\\"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "_")))
+      (concat str "_ "))))
+
+(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)

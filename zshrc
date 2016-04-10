@@ -104,6 +104,7 @@ alias -s bz2='tar -xjvf'
 alias -s g++='clang++ -std=c++11 -stdlib=libc++ -Weverything -Wc++11-extensions'
 alias sshserver='ssh root@121.42.160.119'
 alias sshvps='ssh root@23.105.194.141 -p 26775'
+alias sshvultr='ssh root@45.32.84.202'
 alias xx-net="nohup ~/Softwares/XX-Net-2.5.1/start.sh &"
 alias aria2="aria2c --conf-path="/Users/carter/.aria2/aria2.conf" -D"
 PATH=/Library/TeX/texbin:$PATH;
