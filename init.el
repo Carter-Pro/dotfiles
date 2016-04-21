@@ -39,6 +39,8 @@
 			  magit
 			  org-pomodoro
 			  emacs-eclim
+			  emojify
+			  markdown-mode
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -83,6 +85,15 @@
 (require 'hungry-delete)
 (global-hungry-delete-mode)
 
+;; use emacs to write blog
+(add-to-list 'load-path "/Users/carter/Softwares/blog-admin")
+(require 'blog-admin)
+(setq blog-admin-backend-path "/Users/carter/Softwares/hexo")
+(setq blog-admin-backend-type 'hexo)
+(setq blog-admin-backend-new-post-in-drafts t) 
+(setq blog-admin-backend-new-post-with-same-name-dir t) 
+(add-hook 'blog-admin-backend-after-new-post-hook 'find-file)
+
 ;; enable swiper
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
@@ -119,8 +130,9 @@
 ;; close the start screen
 (setq inhibit-splash-screen t)
 
-;; close file backups
+;; close file backups and auto-save
 (setq make-backup-files nil)
+(set auto-save-default nil)
 
 ;; change cursor to bar
 ;; Notice: cursor-type is a buffer-local variable
@@ -208,12 +220,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4 t)
  '(cfs--current-profile-name "word" t)
  '(company-idle-delay 0.08)
  '(company-minimum-prefix-length 3)
  '(custom-safe-themes
    (quote
     ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(eclim-eclipse-dirs
+   (quote
+    ("~/Applications/Eclipse.app/Contents/MacOS/eclipse")))
+ '(eclim-executable "~/Applications/Eclipse.app/Contents/MacOS/eclipse/eclim")
  '(org-agenda-files
    (quote
     ("/Users/carter/Documents/OneDrive/org-notes/gtd.org" "/Users/carter/Documents/OneDrive/org-notes/org-ref.org")))
@@ -472,18 +489,18 @@ belongs as a list."
   )
 
 ;; org-pomodoro notification
-(add-hook 'org-pomodoro-finished-hook
-           (lambda ()
-             (carter/notify "Pomodoro completed!" "Time for a break.")))
-(add-hook 'org-pomodoro-break-finished-hook
-           (lambda ()
-             (carter/notify "Pomodoro Short Break Finished" "Ready for Another?")))
-(add-hook 'org-pomodoro-long-break-finished-hook
-           (lambda ()
-             (carter/notify "Pomodoro Long Break Finished" "Ready for Another?")))
-(add-hook 'org-pomodoro-killed-hook
-           (lambda ()
-             (carter/notify "Pomodoro Killed" "One does not simply kill a pomodoro!")))
+;;(add-hook 'org-pomodoro-finished-hook
+;;           (lambda ()
+;;             (carter/notify "Pomodoro completed!" "Time for a break.")))
+;;(add-hook 'org-pomodoro-break-finished-hook
+;;           (lambda ()
+;;             (carter/notify "Pomodoro Short Break Finished" "Ready for Another?")))
+;;(add-hook 'org-pomodoro-long-break-finished-hook
+;;           (lambda ()
+;;             (carter/notify "Pomodoro Long Break Finished" "Ready for Another?")))
+;;(add-hook 'org-pomodoro-killed-hook
+;;           (lambda ()
+;;             (carter/notify "Pomodoro Killed" "One does not simply kill a pomodoro!")))
 (defun carter/notify (title message)
   (let ((terminal-notifier-command (executable-find "terminal-notifier")))))
 
@@ -532,9 +549,7 @@ belongs as a list."
 ;; config emacs-eclim
 (require 'eclim)
 (global-eclim-mode)
-(custom-set-variables
-  '(eclim-eclipse-dirs '("~/Applications/Eclipse.app/Contents/MacOS/eclipse"))
-  '(eclim-executable "~/Applications/Eclipse.app/Contents/MacOS/eclipse/eclim"))
+
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
@@ -557,3 +572,49 @@ belongs as a list."
       (concat str "_ "))))
 
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+
+;; desktop notification
+(defun carter/growl-notification (title message &optional sticky)
+  "Send a Growl notification"
+  (do-applescript
+   (format "tell application \"GrowlHelperApp\" \n
+              notify with name \"Emacs Notification\" title \"%s\" description \"%s\" application name \"Emacs.app\" sticky \"%s\"
+              end tell
+              "
+           title
+           message
+           (if sticky "yes" "no"))))
+
+(defun carter/growl-timer (minutes message)
+  "Issue a Growl notification after specified minutes"
+  (interactive (list (read-from-minibuffer "Minutes: " "10")
+                     (read-from-minibuffer "Message: " "Reminder") ))
+  (run-at-time (* (string-to-number minutes) 60)
+               nil
+               (lambda (minute message)
+                 (zilongshanren/growl-notification "Emacs Reminder" message t))
+               minutes
+               message))
+;;(add-hook 'org-pomodoro-finished-hook '(lambda () (carter/growl-notification "Pomodoro Finished" "Have a break!" t)))
+;;(add-hook 'org-pomodoro-short-break-finished-hook '(lambda () (carter/growl-notification "Short Break" "Ready to Go?" t)))
+;;(add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (carter/growl-notification "Long Break" " Ready to Go?" t)))
+    
+
+;; display emoji in emacs
+(setq emojify-emoji-style "unicode")
+(setq emojify-display-style "unicode")
+(add-hook 'after-init-hook #'global-emojify-mode)
+
+;; enable markdown-mode
+(autoload 'markdown-mode "markdown-mode"
+   "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;;
+(setq linum-format "%d")
+
+
+
+
