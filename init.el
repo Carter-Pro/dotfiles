@@ -41,6 +41,7 @@
 			  emacs-eclim
 			  emojify
 			  markdown-mode
+			  popwin
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -132,7 +133,7 @@
 
 ;; close file backups and auto-save
 (setq make-backup-files nil)
-(set auto-save-default nil)
+(setq auto-save-default nil)
 
 ;; change cursor to bar
 ;; Notice: cursor-type is a buffer-local variable
@@ -618,3 +619,6 @@ belongs as a list."
 
 
 
+;; config popwin
+(require 'popwin)
+(popwin-mode t)
