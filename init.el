@@ -84,6 +84,7 @@
 
 ;; enable hungry delete mode
 (require 'hungry-delete)
+
 (global-hungry-delete-mode)
 
 ;; use emacs to write blog
