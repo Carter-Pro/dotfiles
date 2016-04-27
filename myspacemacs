@@ -45,8 +45,11 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(swiper
-                                      blog-admin
                                       chinese-fonts-setup
+                                      org-octopress
+                                      (blog-admin :location (recipe
+                                                             :fetcher github
+                                                             :repo "codefalling/blog-admin"))
                                       hungry-delete)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -257,6 +260,13 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; org-octopress
+  (require 'org-octopress)
+  (setq org-octopress-directory-top       "/Users/carter/Softwares/hexo/source")
+  (setq org-octopress-directory-posts     "/Users/carter/Softwares/hexo/source/_posts")
+  (setq org-octopress-directory-org-top   "/Users/carter/Softwares/hexo/source")
+  (setq org-octopress-directory-org-posts "/Users/carter/Softwares/hexo/source/blog")
+  (setq org-octopress-setup-file          "~/org-sty/setupfile.org")
   (setq org-agenda-files (quote ("~/Documents/OneDrive/org-notes")))
   ;;为中文设置等宽字体
   (when (configuration-layer/layer-usedp 'chinese)
@@ -278,7 +288,7 @@ you should place your code here."
   (fcitx-evil-turn-on)
   (require 'blog-admin)
   (add-hook 'blog-admin-backend-after-new-post-hook 'find-file)
-  (setq blog-admin-backend-path "/Users/carter/Softwares/hexo")
+  (setq blog-admin-backend-path "/Users/carter/blog")
   (setq blog-admin-backend-type 'hexo)
   (setq blog-admin-backend-new-post-in-drafts t) ;; create new post in drafts by default
   (setq blog-admin-backend-new-post-with-same-name-dir t) ;; create same-name directory with new post
@@ -286,6 +296,16 @@ you should place your code here."
   (global-hungry-delete-mode)
   ;; disable line-numbers in org-mode
   (add-hook 'org-mode-hook 'spacemacs/toggle-line-numbers-off 'append)
+  ;; keybinding for pomodoro
+  (global-set-key (kbd "M-p") 'org-pomodoro)
+  ;; 
+  (setq hexo-dir "~/blog")
+  (defun hexo-deploy (commit-msg)
+    "git add . & git commit & git push & hexo d -g"
+    (interactive "sInput commit message:")
+    (async-shell-command (format "cd %s ;git add . ;git commit -m \"%s\" ;git push ;hexo d -g"
+                                 hexo-dir
+                                 commit-msg)))
   )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

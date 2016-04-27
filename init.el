@@ -42,6 +42,7 @@
 			  emojify
 			  markdown-mode
 			  popwin
+			  evil
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -122,13 +123,13 @@
 
 ;; change font
 ;; Setting English Font
-(set-face-attribute 'default nil :font "Monaco 18")
+(set-face-attribute 'default nil :font "Monaco 14")
 
 ;; Chinese Font
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
                     charset (font-spec :family "STFangsong"
-                                       :size 22)))
+                                       :size 16)))
 ;; close the start screen
 (setq inhibit-splash-screen t)
 
@@ -623,3 +624,7 @@ belongs as a list."
 ;; config popwin
 (require 'popwin)
 (popwin-mode t)
+
+;; evil
+(require 'evil)
+(evil-mode 1)
