@@ -123,6 +123,7 @@
 
 (require 'linum-off)
 
+(require 'hlinum)
 
 
 (provide 'init-packages)
