@@ -6,22 +6,11 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-
-
-;; turn off tool-bar
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (add-to-list 'load-path "~/Github/dotfiles/emacs")
 (require 'init-packages)
+(require 'init-ui)
 (package-initialize)
 
-(tool-bar-mode -1)
-
-;; turn off scroll-bar
-(scroll-bar-mode -1)
 
 ;; turn on electric-indent-mode.
 ;; and we will use ";;"
@@ -61,18 +50,13 @@
   (set-fontset-font (frame-parameter nil 'font)
                     charset (font-spec :family "STFangsong"
                                        :size 16)))
-;; close the start screen
-(setq inhibit-splash-screen t)
+
 
 ;; close file backups and auto-save
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
-;; change cursor to bar
-;; Notice: cursor-type is a buffer-local variable
-;; And The difference between setq and setq-default in Emacs Lisp
-;; http://stackoverflow.com/questions/18172728/the-difference-between-setq-and-setq-default-in-emacs-lisp
-(setq-default cursor-type 'bar)
+
 
 ;; open emacs full screen
 ;;(setq initial-frame-alist (quote ((fullscreen . maximized))))
@@ -512,17 +496,6 @@ belongs as a list."
 ;;(add-hook 'org-pomodoro-long-break-finished-hook '(lambda () (carter/growl-notification "Long Break" " Ready to Go?" t)))
     
 
-;; display emoji in emacs
-(setq emojify-emoji-style "unicode")
-(setq emojify-display-style "unicode")
-(add-hook 'after-init-hook #'global-emojify-mode)
-
-;; enable markdown-mode
-(autoload 'markdown-mode "markdown-mode"
-   "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;;
 (setq linum-format "%d")

@@ -58,7 +58,8 @@
 (setq ivy-use-virtual-buffers t)
 
 ;; enable smartparens
-(require 'smartparens-config)
+(smartparens-global-mode t)
+
 
 ;; turn on global-company-mode
 (global-company-mode t)
