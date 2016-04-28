@@ -5,11 +5,10 @@
 ;; config org
 ;; add wrap for org-mode
 (add-hook 'org-mode-hook (lambda()(setq truncate-lines nil)))
+
 ;; org agenda
 (setq org-agenda-files (quote ("~/Documents/OneDrive/org-notes")))
 
-;; org-capture
-(global-set-key (kbd "C-c r") 'org-capture)
 (setq org-capture-templates
       '(("t" "Inbox" entry (file+headline "~/Documents/OneDrive/org-notes/gtd.org" "Inbox")
 	 "* TODO [#B] %?\n  %i\n"

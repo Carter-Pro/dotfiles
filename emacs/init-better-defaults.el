@@ -43,4 +43,5 @@
 ;; set the default write coding system
 (setq default-buffer-file-coding-system 'utf-8)
 
+(setq linum-format "%d ")
 (provide 'init-better-defaults)

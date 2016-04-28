@@ -121,6 +121,7 @@
 
 (require 'fcitx)
 
+(require 'linum-off)
 
 
 

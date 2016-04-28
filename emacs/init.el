@@ -8,6 +8,7 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 (add-to-list 'load-path "~/Github/dotfiles/emacs")
+(add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'init-function)
 (require 'init-packages)
 (require 'init-ui)
