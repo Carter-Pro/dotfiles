@@ -164,7 +164,7 @@
 ;;define a function to open the init file
 (defun carter/open-init-file()
   (interactive)
-  (find-file "~/Github/dotfiles/init.el"))
+  (find-file "~/Github/dotfiles/emacs/init.el"))
 (global-set-key (kbd "<f2>") 'carter/open-init-file)
 
 ;; define a function to open the gtd.org
