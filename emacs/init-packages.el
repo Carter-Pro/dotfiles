@@ -11,6 +11,8 @@
 ;; define a package list.
 (defvar carter/packages '(
                           company
+			  org
+			  ctable
 			  zenburn-theme
 			  solarized-theme
 			  spacemacs-theme
@@ -23,13 +25,13 @@
 			  org-ref
 			  helm-bibtex
 			  evil
-			  fcitx
 			  dash
-			  chinese-fonts-setup
 			  magit
 			  org-pomodoro
 			  popwin
 			  evil
+			  fcitx
+			  names
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -55,6 +57,7 @@
 
 ;; swiper
 (ivy-mode 1)
+
 (setq ivy-use-virtual-buffers t)
 
 ;; enable smartparens
@@ -89,6 +92,7 @@
 ;; use org-mode to manage reference.
 (require 'org-ref)
 
+(require 'fcitx)
 
 
 
