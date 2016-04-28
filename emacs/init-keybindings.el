@@ -21,7 +21,7 @@
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 
-(global-set-key (kbd "C-c s") 'my-org-screenshot)
+(global-set-key (kbd "C-c p s") 'my-org-screenshot)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -31,5 +31,8 @@
 (global-set-key (kbd "C-c n") 'org-ref-open-bibtex-notes)
 
 (global-set-key (kbd "C-c p f") 'counsel-git)
+
+;; org-capture
+(global-set-key (kbd "C-c r") 'org-capture)
 
 (provide 'init-keybindings)

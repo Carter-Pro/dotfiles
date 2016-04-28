@@ -29,5 +29,18 @@
 ;; add delete-selection-mode
 (delete-selection-mode t)
 
+;;let mac could find the excuable
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+;; turn on electric-indent-mode.
+;; and we will use ";;"
+(electric-indent-mode t)
+
+;; config default coding system
+;; set the default reading coding system
+(prefer-coding-system 'utf-8)
+;; set the default write coding system
+(setq default-buffer-file-coding-system 'utf-8)
 
 (provide 'init-better-defaults)

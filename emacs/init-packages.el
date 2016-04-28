@@ -91,6 +91,33 @@
 
 ;; use org-mode to manage reference.
 (require 'org-ref)
+;; see org-ref for use of these variables
+(setq reftex-default-bibliography '("/Users/carter/Documents/OneDrive/Papers/references.bib"))
+(setq org-ref-bibliography-notes "/Users/carter/Documents/OneDrive/Papers/refnotes.org"
+      org-ref-default-bibliography '("/Users/carter/Documents/OneDrive/Papers/references.bib")
+      org-ref-pdf-directory "/Users/carter/Documents/OneDrive/Papers/Collections/")
+;; config helm-bibtex
+(autoload 'helm-bibtex "helm-bibtex" "" t)
+(setq helm-bibtex-bibliography "/Users/carter/Documents/OneDrive/Papers/references.bib")
+(setq helm-bibtex-library-path "/Users/carter/Documents/OneDrive/Papers/Collections")
+
+;; open pdf with system pdf viewer (works on mac)
+(setq helm-bibtex-pdf-open-function
+  (lambda (fpath)
+    (start-process "open" "*open*" "open" fpath)))
+
+;; alternative
+;; (setq helm-bibtex-pdf-open-function 'org-open-file)
+(setq helm-bibtex-notes-path "/Users/carter/Documents/OneDrive/Papers/helm-bibtex-notes")
+;; config org-ref
+;;(add-hook 'org-ref-clean-bibtex-entry-hook 'org-ref-replace-nonascii)
+(setq bibtex-autokey-year-length 4
+      bibtex-autokey-name-year-separator "-"
+      bibtex-autokey-year-title-separator "-"
+      bibtex-autokey-titleword-separator "-"
+      bibtex-autokey-titlewords 2
+      bibtex-autokey-titlewords-stretch 1
+      bibtex-autokey-titleword-length 5)
 
 (require 'fcitx)
 

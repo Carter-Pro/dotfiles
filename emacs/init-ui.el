@@ -12,4 +12,17 @@
 
 ;; full screen
 ;;(setq initial-frame-alist (quote ((fullscreen . maximized))))
+
+
+;; change font
+;; Setting English Font
+;; what i use Monaco14/STFangsong 16
+(set-face-attribute 'default nil :font "Monaco 14")
+
+;; Chinese Font
+(dolist (charset '(kana han symbol cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font)
+                    charset (font-spec :family "STFangsong"
+                                       :size 16)))
+
 (provide 'init-ui)
