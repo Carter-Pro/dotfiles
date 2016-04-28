@@ -2,6 +2,7 @@
 (require 'cl)
 
 (when (>= emacs-major-version 24)
+  (package-initialize)
   (add-to-list 'package-archives
 	       '("melpa" . "https://melpa.org/packages/") t)
   )
@@ -58,7 +59,6 @@
 
 ;; enable smartparens
 (require 'smartparens-config)
-(smartparens-global-mode t)
 
 ;; turn on global-company-mode
 (global-company-mode t)
@@ -75,5 +75,21 @@
 ;; config popwin
 (require 'popwin)
 (popwin-mode t)
+
+;; use emacs to write blog
+(add-to-list 'load-path "/Users/carter/Softwares/blog-admin")
+(require 'blog-admin)
+(setq blog-admin-backend-path "/Users/carter/blog")
+(setq blog-admin-backend-type 'hexo)
+(setq blog-admin-backend-new-post-in-drafts t) 
+(setq blog-admin-backend-new-post-with-same-name-dir t) 
+(add-hook 'blog-admin-backend-after-new-post-hook 'find-file)
+
+;; use org-mode to manage reference.
+(require 'org-ref)
+
+
+
+
 
 (provide 'init-packages)

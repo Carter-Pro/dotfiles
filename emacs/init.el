@@ -37,15 +37,6 @@
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
 
-;; use emacs to write blog
-(add-to-list 'load-path "/Users/carter/Softwares/blog-admin")
-(require 'blog-admin)
-(setq blog-admin-backend-path "/Users/carter/blog")
-(setq blog-admin-backend-type 'hexo)
-(setq blog-admin-backend-new-post-in-drafts t) 
-(setq blog-admin-backend-new-post-with-same-name-dir t) 
-(add-hook 'blog-admin-backend-after-new-post-hook 'find-file)
-
 ;; enable swiper
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
@@ -132,11 +123,8 @@
 (setq org-agenda-files (quote ("~/Documents/OneDrive/org-notes")))
 (global-set-key (kbd "C-c a") 'org-agenda)
 
-;; use org-mode to manage reference.
-(require 'org-ref)
-(setq reftex-default-bibliography '("/Users/carter/Documents/OneDrive/Papers/references.bib"))
-
 ;; see org-ref for use of these variables
+(setq reftex-default-bibliography '("/Users/carter/Documents/OneDrive/Papers/references.bib"))
 (setq org-ref-bibliography-notes "/Users/carter/Documents/OneDrive/Papers/refnotes.org"
       org-ref-default-bibliography '("/Users/carter/Documents/OneDrive/Papers/references.bib")
       org-ref-pdf-directory "/Users/carter/Documents/OneDrive/Papers/Collections/")
@@ -284,10 +272,6 @@ same directory as the org-buffer and insert a link to this file."
 
 (setq default-buffer-file-coding-system 'utf-8)
 
-;; config chinese-fonts-setup
-;;(require 'chinese-fonts-setup)
-;;(setq cfs-profiles
-;;    '("program" "org-mode" "word"))
 ;; config magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
