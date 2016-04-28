@@ -7,64 +7,17 @@
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (package-initialize)
-  (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/") t)
-  )
 
-;; require common lisp
-(require 'cl)
-
-;; add whatever packages you want here
-;; define a package list.
-(defvar carter/packages '(
-                          company
-			  zenburn-theme
-			  solarized-theme
-			  spacemacs-theme
-			  monokai-theme
-			  hungry-delete
-			  swiper
-			  counsel
-			  smartparens
-			  exec-path-from-shell
-			  org-ref
-			  helm-bibtex
-			  evil
-			  fcitx
-			  dash
-			  chinese-fonts-setup
-			  magit
-			  org-pomodoro
-			  emacs-eclim
-			  emojify
-			  markdown-mode
-			  popwin
-			  evil
-			  )  "Default packages")
-
-;; prevent package-autoremove delete the packages we installed.
-(setq package-selected-packages carter/packages)
-
-;; look if the packages were installed.
-(defun carter/packages-installed-p ()
-  (loop for pkg in carter/packages
-        when (not (package-installed-p pkg)) do (return nil)
-        finally (return t)))
-
-(unless (carter/packages-installed-p)
-  (message "%s" "Refreshing package database...")
-  (package-refresh-contents)
-  (dolist (pkg carter/packages)
-    (when (not (package-installed-p pkg))
-      (package-install pkg))))
-
-;; choose a theme to load
-;; (load-theme 'spacemacs-light t)
-(load-theme 'monokai t)
 ;; turn off tool-bar
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(add-to-list 'load-path "~/Github/dotfiles/emacs")
+(require 'init-packages)
+(package-initialize)
+
 (tool-bar-mode -1)
 
 ;; turn off scroll-bar
@@ -83,10 +36,6 @@
 (setq recentf-max-menu-items 25)
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
 
-;; enable hungry delete mode
-(require 'hungry-delete)
-
-(global-hungry-delete-mode)
 
 ;; use emacs to write blog
 (add-to-list 'load-path "/Users/carter/Softwares/blog-admin")
@@ -98,8 +47,6 @@
 (add-hook 'blog-admin-backend-after-new-post-hook 'find-file)
 
 ;; enable swiper
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
@@ -108,29 +55,21 @@
 (global-set-key (kbd "C-h f") 'counsel-describe-function)
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
 
-;; enable smartparens
-(require 'smartparens-config)
-;;(add-hook 'emacs-lisp-mode-hook 'smartparens-mode)
-(smartparens-global-mode t)
 
 ;; turn on linum-mode
 (global-linum-mode t)
 
-;; turn on global-company-mode
-(global-company-mode t)
-;; turn off company-mode for org-mode
-(setq company-global-modes '(not org-mode))
 
 ;; change font
 ;; Setting English Font
 ;; what i use Monaco14/STFangsong 16
-(set-face-attribute 'default nil :font "Monaco 22")
+(set-face-attribute 'default nil :font "Monaco 14")
 
 ;; Chinese Font
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
                     charset (font-spec :family "STFangsong"
-                                       :size 26)))
+                                       :size 16)))
 ;; close the start screen
 (setq inhibit-splash-screen t)
 
@@ -549,21 +488,6 @@ belongs as a list."
 
 (add-hook'org-after-todo-statistics-hook 'org-summary-todo)
 
-
-;; config emacs-eclim
-(require 'eclim)
-(global-eclim-mode)
-
-(setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
-
-(require 'company)
-(require 'company-emacs-eclim)
-(company-emacs-eclim-setup)
-(global-company-mode t)
-
-
 ;; replace \emsp to \__ in org-clock-report
 ;;http://emacs.stackexchange.com/questions/9528/is-it-possible-to-remove-emsp-from-clock-report-but-preserve-indentation
 (defun my-org-clocktable-indent-string (level)
@@ -622,13 +546,6 @@ belongs as a list."
 
 
 
-;; config popwin
-(require 'popwin)
-(popwin-mode t)
-
-;; evil
-(require 'evil)
-(evil-mode 1)
 
 ;; org-capture
 (global-set-key (kbd "C-c r") 'org-capture)
