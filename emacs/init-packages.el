@@ -1,6 +1,8 @@
+;;;package --- Summary
+;;; Commentary:
 ;; require common lisp
 (require 'cl)
-
+;;; Code:
 (when (>= emacs-major-version 24)
   (package-initialize)
   (add-to-list 'package-archives
@@ -18,7 +20,9 @@
 			  spacemacs-theme
 			  monokai-theme
 			  hungry-delete
+			  ivy
 			  swiper
+			  smex
 			  counsel
 			  smartparens
 			  exec-path-from-shell
@@ -32,6 +36,11 @@
 			  evil
 			  fcitx
 			  names
+			  ycmd
+			  company-ycmd
+			  flycheck-ycmd
+			  yasnippet
+			  helm-gtags
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -56,8 +65,9 @@
 (global-hungry-delete-mode)
 
 ;; swiper
+;; if want ivy-mode support list commands as frequence, you must install smex!
 (ivy-mode 1)
-
+(setq ivy-wrap t)
 (setq ivy-use-virtual-buffers t)
 
 ;; enable smartparens
@@ -68,9 +78,6 @@
 (global-company-mode t)
 (setq company-global-modes '(not org-mode))
 
-;; choose a theme to load
-(load-theme 'spacemacs-light t)
-;;(load-theme 'monokai t)
 
 ;; evil
 (require 'evil)
@@ -125,5 +132,27 @@
 
 (require 'hlinum)
 
+(require 'smex)
+(smex-initialize)
 
+;; make emacs as a c++ ide
+
+;; use company for ycmd
+;;(require 'company-ycmd)
+;;(company-ycmd-setup)
+;;
+;;(require 'ycmd)
+;;(add-hook 'c++-mode-hook 'ycmd)
+;;(set-variable 'ycmd-server-command '("python" "/Users/carter/Softwares/ycmd"))
+;;(set-variable 'ycmd-global-config "/User/carter/.emacs.d/.global_config.py")
+;;;; (set-variable 'ycmd-extra-conf-whitelist '("~/my_projects/*"))
+;;
+;;;; enable yasnippet
+;;(require 'yasnippet)
+;;(yas-global-mode 1)
+;;;; use ycmd as the backend for flycheck
+;;(require 'flycheck-ycmd)
+;;(flycheck-ycmd-setup)
+;;
+;;(global-flycheck-mode)
 (provide 'init-packages)

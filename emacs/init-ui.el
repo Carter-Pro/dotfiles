@@ -24,5 +24,8 @@
   (set-fontset-font (frame-parameter nil 'font)
                     charset (font-spec :family "STFangsong"
                                        :size 16)))
+;; choose a theme to load
+(load-theme 'spacemacs-light t)
+;; (load-theme 'monokai t)
 
 (provide 'init-ui)
