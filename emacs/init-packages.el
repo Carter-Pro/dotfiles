@@ -6,13 +6,13 @@
 (when (>= emacs-major-version 24)
   (package-initialize)
   (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/") t)
+	       '("popkit" . "http://elpa.popkit.org/packages/"))
   )
 
 ;; add whatever packages you want here
 ;; define a package list.
 (defvar carter/packages '(
-                          company
+			  company
 			  org
 			  ctable
 			  zenburn-theme
@@ -41,6 +41,8 @@
 			  flycheck-ycmd
 			  yasnippet
 			  helm-gtags
+			  company-c-headers
+			  cmake-ide
 			  )  "Default packages")
 
 ;; prevent package-autoremove delete the packages we installed.
@@ -73,10 +75,6 @@
 ;; enable smartparens
 (smartparens-global-mode t)
 
-
-;; turn on global-company-mode
-(global-company-mode t)
-(setq company-global-modes '(not org-mode))
 
 
 ;; evil
@@ -128,31 +126,26 @@
 
 (require 'fcitx)
 
-(require 'linum-off)
+;;(require 'linum-off)
 
-(require 'hlinum)
+;;(require 'hlinum)
 
 (require 'smex)
 (smex-initialize)
 
-;; make emacs as a c++ ide
+;; turn on global-company-mode
+(global-company-mode t)
+(setq company-global-modes '(not org-mode))
 
-;; use company for ycmd
-;;(require 'company-ycmd)
-;;(company-ycmd-setup)
-;;
-;;(require 'ycmd)
-;;(add-hook 'c++-mode-hook 'ycmd)
-;;(set-variable 'ycmd-server-command '("python" "/Users/carter/Softwares/ycmd"))
-;;(set-variable 'ycmd-global-config "/User/carter/.emacs.d/.global_config.py")
-;;;; (set-variable 'ycmd-extra-conf-whitelist '("~/my_projects/*"))
-;;
-;;;; enable yasnippet
-;;(require 'yasnippet)
-;;(yas-global-mode 1)
-;;;; use ycmd as the backend for flycheck
-;;(require 'flycheck-ycmd)
-;;(flycheck-ycmd-setup)
-;;
-;;(global-flycheck-mode)
+;; ycmd
+(require 'ycmd)
+(add-hook 'c++-mode-hook 'ycmd-mode)
+
+(set-variable 'ycmd-server-command '("python" "/Users/carter/Softwares/ycmd/ycmd/"))
+(set-variable 'ycmd-global-config "~/.global_config.py")
+
+(require 'company-ycmd)
+(company-ycmd-setup)
+
+
 (provide 'init-packages)

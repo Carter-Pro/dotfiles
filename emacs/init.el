@@ -16,6 +16,7 @@
 (require 'init-org)
 (require 'init-keybindings)
 (setq custom-file "~/Github/dotfiles/emacs/custom.el")
+(load-file custom-file)
 
 
 

@@ -107,6 +107,7 @@ alias sshvps='ssh root@23.105.194.141 -p 26775'
 alias sshvultr='ssh root@45.32.60.171'
 alias xx-net="nohup ~/Softwares/XX-Net-2.5.1/start.sh &"
 alias aria2="aria2c --conf-path="/Users/carter/.aria2/aria2.conf" -D"
+alias pc="proxychains4"
 PATH=/Library/TeX/texbin:$PATH;
 export PATH
 
