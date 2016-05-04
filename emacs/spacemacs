@@ -29,7 +29,16 @@ values."
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
      python
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.1
+                      auto-completion-private-snippets-directory nil
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-sort-by-usage t
+                      :disabled-for
+                      org)
      better-defaults
      emacs-lisp
      git
@@ -330,7 +339,7 @@ you should place your code here."
     (find-file "/Users/carter/Documents/OneDrive/org-notes/gtd.org"))
   (global-set-key (kbd "<f1>") 'my/open-gtd-file)
 
-  (setq org-agenda-files (quote ("~/Documents/OneDrive/org-notes")))
+  (setq org-agenda-files (quote ("~/Documents/OneDrive/org-notes/gtd.org")))
 
   (setq org-capture-templates
         '(("t" "Inbox" entry (file+headline "~/Documents/OneDrive/org-notes/gtd.org" "Inbox")
@@ -399,9 +408,7 @@ you should place your code here."
                   "-title" title
                   "-sender" "org.gnu.Emacs"
                   "-message" message
-                  "-activate" "oeg.gnu.Emacs"
-                  ;;"-appIcon" "/Users/carter/.emacs.d/core/banners/img/pomodoro.png"
-                  "-contentImage" "/Users/carter/.emacs.d/core/banners/img/icon.png"))
+                  "-activate" "oeg.gnu.Emacs"))
   (add-hook 'org-pomodoro-finished-hook
             (lambda ()
               (notify-osx "Pomodoro completed!" "Time for a break.")))
