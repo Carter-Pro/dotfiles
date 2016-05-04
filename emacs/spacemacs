@@ -61,6 +61,7 @@ values."
                                       counsel
                                       dash-at-point
                                       reveal-in-osx-finder
+                                      google-c-style
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -363,6 +364,58 @@ you should place your code here."
   ;; (dolist (mode '(wangyi-music-mode
   ;;                 ))
   ;;   (add-to-list 'evil-emacs-state-modes mode))
+  (defun indent-buffer ()
+    "Indent the currently visited buffer."
+    (interactive)
+    reveal-in-osx-finder   It is bound to RET, a.
+    (indent-rSpacemacsegion (point-min) (point-max)))
+
+  (defun indent-region-or-buffer ()
+    "Indent a region if selected, otherwise the whole buffer."
+    (interactive)
+    (save-excursion
+      (if (region-active-p)
+          (progn
+            (indent-region (region-beginning) (region-end))
+            (message "Indented selected region."))
+        (progn
+          (indent-buffer)
+          (message "Indented buffer.")))))
+  (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
+
+  ;; (require 'google-c-style)
+  ;; (add-hook 'c-mode-common-hook 'google-set-c-style)
+  ;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+  (setq-default c-default-style "k&r")
+
+  ;;send notify to os x
+  ;;https://gist.github.com/jstewart/7664823
+  (setq alert-default-style 'notifier)
+  (defun notify-osx (title message)
+    (call-process "terminal-notifier"
+                  nil 0 nil
+                  "-group" "Emacs"
+                  "-title" title
+                  "-sender" "org.gnu.Emacs"
+                  "-message" message
+                  "-activate" "oeg.gnu.Emacs"
+                  ;;"-appIcon" "/Users/carter/.emacs.d/core/banners/img/pomodoro.png"
+                  "-contentImage" "/Users/carter/.emacs.d/core/banners/img/icon.png"))
+  (add-hook 'org-pomodoro-finished-hook
+            (lambda ()
+              (notify-osx "Pomodoro completed!" "Time for a break.")))
+
+  (add-hook 'org-pomodoro-break-finished-hook
+            (lambda ()
+              (notify-osx "Pomodoro Short Break Finished" "Ready for Another?")))
+
+  (add-hook 'org-pomodoro-long-break-finished-hook
+            (lambda ()
+              (notify-osx "Pomodoro Long Break Finished" "Ready for Another?")))
+  (add-hook 'org-pomodoro-killed-hook
+            (lambda ()
+              (notify-osx "Pomodoro Killed" "One does not simply kill a pomodoro!")))
 
   )
 
