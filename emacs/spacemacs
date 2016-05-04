@@ -47,6 +47,7 @@ values."
      ;; markdown
      org
      smex
+     emoji
      (syntax-checking :variables
                       syntax-checking-enable-by-default nil)
      (shell :variables
@@ -423,6 +424,10 @@ you should place your code here."
   (add-hook 'org-pomodoro-killed-hook
             (lambda ()
               (notify-osx "Pomodoro Killed" "One does not simply kill a pomodoro!")))
+
+
+  (setq org-bullets-bullet-list '("🐉" "🐠" "🐬" "🐤"))
+
 
   )
 
