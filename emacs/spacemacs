@@ -60,6 +60,7 @@ values."
                                       swiper
                                       counsel
                                       dash-at-point
+                                      reveal-in-osx-finder
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -355,7 +356,13 @@ you should place your code here."
   (add-hook 'org-mode-hook 'spacemacs/toggle-line-numbers-off 'append)
   (setq company-global-modes '(not org-mode))
 
-  ;; dash-at-point
+  (require 'reveal-in-osx-finder)
+
+  (add-to-list 'load-path "~/.emacs.d/lisp")
+  (require 'wangyi-music-mode)
+  ;; (dolist (mode '(wangyi-music-mode
+  ;;                 ))
+  ;;   (add-to-list 'evil-emacs-state-modes mode))
 
   )
 
