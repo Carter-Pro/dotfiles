@@ -71,7 +71,6 @@ values."
                                       counsel
                                       dash-at-point
                                       reveal-in-osx-finder
-                                      google-c-style
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -424,11 +423,6 @@ you should place your code here."
   (add-hook 'org-pomodoro-killed-hook
             (lambda ()
               (notify-osx "Pomodoro Killed" "One does not simply kill a pomodoro!")))
-
-
-  (setq org-bullets-bullet-list '("🐉" "🐠" "🐬" "🐤"))
-
-
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
