@@ -465,6 +465,7 @@ same directory as the org-buffer and insert a link to this file."
         (insert (concat "[[file:" filename "]]")))
     (org-display-inline-images)
     )
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
