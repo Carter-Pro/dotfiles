@@ -29,6 +29,7 @@ values."
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
      python
+     markdown
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -71,6 +72,9 @@ values."
                                       counsel
                                       dash-at-point
                                       reveal-in-osx-finder
+                                      (blog-admin :location (recipe
+                                                             :fetcher github
+                                                             :repo "codefalling/blog-admin"))
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
@@ -423,6 +427,43 @@ you should place your code here."
   (add-hook 'org-pomodoro-killed-hook
             (lambda ()
               (notify-osx "Pomodoro Killed" "One does not simply kill a pomodoro!")))
+
+  (require 'blog-admin)
+  (add-hook 'blog-admin-backend-after-new-post-hook 'find-file)
+  (setq blog-admin-backend-path "~/blog")
+  (setq blog-admin-backend-type 'hexo)
+  (setq blog-admin-backend-new-post-in-drafts t) ;; create new post in drafts by default
+  (setq blog-admin-backend-new-post-with-same-name-dir t) ;; create same-name directory with new post
+
+  (add-hook 'org-mode-hook (lambda()(setq truncate-lines nil)))
+
+  (defun my-org-screenshot ()
+    "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (org-display-inline-images)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat (file-name-base (buffer-file-name))
+                    "/"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+    (unless (file-exists-p (file-name-directory filename))
+      (make-directory (file-name-directory filename)))
+                                        ; take screenshot
+    (if (eq system-type 'darwin)
+        (progn
+          (call-process-shell-command "screencapture" nil nil nil nil " -s " (concat
+                                                                              "\"" filename "\"" ))
+          (call-process-shell-command "convert" nil nil nil nil (concat "\"" filename "\" -resize  \"50%\"" ) (concat "\"" filename "\"" ))
+          ))
+    (if (eq system-type 'gnu/linux)
+        (call-process "import" nil nil nil filename))
+                                        ; insert into file if correctly taken
+    (if (file-exists-p filename)
+        (insert (concat "[[file:" filename "]]")))
+    (org-display-inline-images)
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
