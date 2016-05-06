@@ -452,17 +452,23 @@ same directory as the org-buffer and insert a link to this file."
     (interactive)
     (ido-find-file-in-dir (format "%s/source/" hexo-dir))
     )
+
+ 
+  (setq org-startup-with-inline-images nil)
+  (require 'org-archive-subtree-hierarchical)
   (evil-leader/set-key
     "op" 'org-pomodoro
     "os" 'my-org-screenshot
     "oy" 'youdao-dictionary-search-at-point+
     "ol" 'package-list-packages
     "og" 'org-mac-grab-link
+    "oa" 'org-archive-all-tasks
     "obs" 'blog-admin-start
     "obp" 'hexo-publish
     "obd" 'hexo-org-source)
-  (setq org-startup-with-inline-images nil)
-  )
+
+  (setq org-refile-targets (list (cons nil (cons :maxlevel 2))))
+   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
