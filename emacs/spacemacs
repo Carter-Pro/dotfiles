@@ -11,7 +11,8 @@ values."
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
-   ;; List of additional paths where to look for configuration layers.
+   ;; List of additional paths wh
+ere to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
@@ -316,28 +317,6 @@ you should place your code here."
 
   (global-hungry-delete-mode)
 
-  ;;(defun my/hotspots ()
-  ;;"helm interface to my hotspots, which includes my locations,
-  ;;org-files and bookmarks"
-  ;;(interactive)
-  ;;(helm :buffer "*helm: utities*"
-  ;;      :sources `(,(my/hotspots-sources))))
-
-  ;;(defun my/hotspots-sources ()
-  ;;  "Construct the helm sources for my hotspots"
-  ;;  `((name . "Mail and News")
-  ;;    (candidates . (
-  ;;                   ;; ("Calendar" . (lambda ()  (browse-url "https://www.google.com/calendar/render")))
-  ;;                   ;; ("RSS" . elfeed)
-  ;;                   ;; ("Blog" . org-octopress)
-  ;;                   ;; ("Github" . (lambda() (helm-github-stars)))
-  ;;                   ;; ("Calculator" . (lambda () (helm-calcul-expression)))
-  ;;                   ;; ("Run current flie" . (lambda () (zilongshanren/run-current-file)))
-  ;;                   ("Agenda" . (lambda () (org-agenda "" "a")))
-  ;;                   ("gtd" . (lambda () (my/open-gtd-file)))
-  ;;                   ;;("sicp" . (lambda() (browse-url "http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-4.html#%_toc_start")))))
-  ;;    (candidate-number-limit)
-  ;;    (action . (("Open" . (lambda (x) (funcall x)))))))))
   (defun my/open-gtd-file()
     (interactive)
     (find-file "/Users/carter/Documents/OneDrive/org-notes/gtd.org"))
@@ -396,10 +375,6 @@ you should place your code here."
           (message "Indented buffer.")))))
   (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
 
-  ;; (require 'google-c-style)
-  ;; (add-hook 'c-mode-common-hook 'google-set-c-style)
-  ;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
   (setq-default c-default-style "k&r")
 
   ;;send notify to os x
@@ -441,7 +416,7 @@ you should place your code here."
     "Take a screenshot into a time stamped unique-named file in the
 same directory as the org-buffer and insert a link to this file."
     (interactive)
-    (org-display-inline-images)
+    ;; (org-display-inline-images)
     (setq filename
           (concat
            (make-temp-name
@@ -463,10 +438,45 @@ same directory as the org-buffer and insert a link to this file."
                                         ; insert into file if correctly taken
     (if (file-exists-p filename)
         (insert (concat "[[file:" filename "]]")))
-    (org-display-inline-images)
+    ;; (org-display-inline-images)
+    )
+  (setq hexo-dir "~/blog")
+  (defun hexo-publish (commit-msg)
+    "git add . & git commit & git push & hexo d -g"
+    (interactive "sInput commit message:")
+    (async-shell-command (format "cd %s ;git add . ;git commit -m \"%s\" ;git push ;hexo d -g"
+                                 hexo-dir
+                                 commit-msg)))
+  (defun hexo-open-source ()
+    "use dired open hexo source dir"
+    (interactive)
+    (ido-find-file-in-dir (format "%s/source/" hexo-dir))
     )
 
+  (evil-leader/set-key
+    "op" 'org-pomodoro
+    "os" 'my-org-screenshot
+    "oy" 'youdao-dictionary-search-at-point+
+    "ol" 'package-list-packages
+    "obs" 'blog-admin-start
+    "obp" 'hexo-publish
+    "obd" 'hexo-org-source)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (youdao-dictionary chinese-word-at-point xterm-color toc-org smex smeargle shell-pop reveal-in-osx-finder pyvenv pytest pyenv-mode py-yapf pip-requirements pangu-spacing orgit org-repo-todo org-present org-pomodoro alert log4e gntp org-plus-contrib org-bullets multi-term mmm-mode markdown-toc markdown-mode magit-gitflow hy-mode htmlize helm-pydoc helm-gtags helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md ggtags flycheck-ycmd flycheck-pos-tip flycheck find-by-pinyin-dired fcitx evil-magit magit magit-popup git-commit with-editor eshell-prompt-extras esh-help emoji-cheat-sheet-plus disaster dash-at-point cython-mode counsel swiper ivy company-ycmd ycmd request-deferred request deferred company-statistics company-quickhelp company-emoji company-c-headers company-anaconda company cmake-mode clang-format chinese-pyim pos-tip blog-admin names ctable auto-yasnippet yasnippet anaconda-mode pythonic f ace-pinyin pinyinlib ace-jump-mode ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text monokai-theme macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
