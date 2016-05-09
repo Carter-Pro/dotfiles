@@ -135,13 +135,14 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         zenburn
                          solarized-dark
                          solarized-light
                          spacemacs-dark
                          monokai
                          leuven
                          spacemacs-light
-                         zenburn)
+                         )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -460,6 +461,7 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-startup-with-inline-images nil)
   (require 'org-archive-subtree-hierarchical)
   (evil-leader/set-key
+    "od" 'dash-at-point
     "op" 'org-pomodoro
     "os" 'my-org-screenshot
     "oy" 'youdao-dictionary-search-at-point+
@@ -496,10 +498,13 @@ same directory as the org-buffer and insert a link to this file."
  '(org-agenda-files (quote ("~/Documents/OneDrive/org-notes")))
  '(org-emphasis-alist
    (quote
-    (("*" org-code)
+    (("*"
+      (:foreground "#BFEBBF"))
      ("/" italic)
      ("_" underline)
-     ("=" org-verbatim verbatim)
+     ("="
+      (:foreground "#94BFF3")
+      verbatim)
      ("~" org-code verbatim)
      ("+"
       (:strike-through t)))))
