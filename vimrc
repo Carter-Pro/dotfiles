@@ -27,3 +27,4 @@ set shiftwidth=4
 
 " 语法高亮
 syntax on
+color dracula

@@ -81,7 +81,6 @@ values."
                                       )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(
-                                    spaceline
                                     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -136,10 +135,11 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         monokai
-                         spacemacs-dark
+                         dracula
                          zenburn
                          solarized-dark
+                         spacemacs-dark
+                         monokai
                          solarized-light
                          leuven
                          spacemacs-light
@@ -294,7 +294,6 @@ you should place your code here."
   ;; change font
   ;; Setting English Font
   ;; what i use Monaco14/STFangsong 16
-
   ;; Chinese Font
   (dolist (charset '(kana han symbol cjk-misc bopomofo))
     (set-fontset-font (frame-parameter nil 'font)
@@ -473,19 +472,23 @@ same directory as the org-buffer and insert a link to this file."
 
   (setq org-refile-targets (list (cons nil (cons :maxlevel 2))))
 
-  ;; (spacemacs/toggle-mode-line-org-clock-on)
-  (setq evil-normal-state-tag   (propertize "[Normal]" 'face '((:background "green" :foreground "black")))
-        evil-emacs-state-tag    (propertize "[Emacs]" 'face '((:background "orange" :foreground "black")))
-        evil-insert-state-tag   (propertize "[Insert]" 'face '((:background "red") :foreground "white"))
-        evil-motion-state-tag   (propertize "[Motion]" 'face '((:background "blue") :foreground "white"))
-        evil-visual-state-tag   (propertize "[Visual]" 'face '((:background "grey80" :foreground "black")))
-        evil-operator-state-tag (propertize "[Operator]" 'face '((:background "purple"))))
+  (spacemacs/toggle-mode-line-org-clock-on) 
+  (setq powerline-default-separator 'nil)
+  (spaceline-compile)
+  ;;  (setq evil-normal-state-tag   (propertize "[Normal]" 'face '((:background "green" :foreground "black")))
+  ;;        evil-emacs-state-tag    (propertize "[Emacs]" 'face '((:background "orange" :foreground "black")))
+  ;;        evil-insert-state-tag   (propertize "[Insert]" 'face '((:background "red") :foreground "white"))
+  ;;        evil-motion-state-tag   (propertize "[Motion]" 'face '((:background "blue") :foreground "white"))
+  ;;        evil-visual-state-tag   (propertize "[Visual]" 'face '((:background "grey80" :foreground "black")))
+  ;;        evil-operator-state-tag (propertize "[Operator]" 'face '((:background "purple"))))
   (setq org-ellipsis "⤵")
   (setq org-bullets-bullet-list '("☰" "■" "▶" "●" "○"))
 
   (setq ispell-program-name "/usr/local/bin/aspell")
   (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (setcdr evil-insert-state-map nil)
+  (define-key evil-insert-state-map [escape] 'evil-normal-state)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
