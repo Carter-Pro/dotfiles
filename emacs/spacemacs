@@ -62,6 +62,7 @@ values."
             shell-default-term-shell "/bin/zsh")
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
+     dash
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -72,7 +73,6 @@ values."
                                       f
                                       swiper
                                       counsel
-                                      dash-at-point
                                       reveal-in-osx-finder
                                       (blog-admin :location (recipe
                                                              :fetcher github
@@ -230,7 +230,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-maximized-at-startup t
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -458,7 +458,6 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-startup-with-inline-images nil)
   (require 'org-archive-subtree-hierarchical)
   (evil-leader/set-key
-    "od" 'dash-at-point
     "of" 'reveal-in-osx-finder
     "op" 'org-pomodoro
     "os" 'my-org-screenshot
@@ -473,8 +472,9 @@ same directory as the org-buffer and insert a link to this file."
   (setq org-refile-targets (list (cons nil (cons :maxlevel 2))))
 
   (spacemacs/toggle-mode-line-org-clock-on) 
-  (setq powerline-default-separator 'nil)
+  (setq powerline-default-separator 'slant)
   (spaceline-compile)
+  (setq ns-use-srgb-colorspace nil)
   ;;  (setq evil-normal-state-tag   (propertize "[Normal]" 'face '((:background "green" :foreground "black")))
   ;;        evil-emacs-state-tag    (propertize "[Emacs]" 'face '((:background "orange" :foreground "black")))
   ;;        evil-insert-state-tag   (propertize "[Insert]" 'face '((:background "red") :foreground "white"))
@@ -487,8 +487,8 @@ same directory as the org-buffer and insert a link to this file."
   (setq ispell-program-name "/usr/local/bin/aspell")
   (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  (setcdr evil-insert-state-map nil)
-  (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  ;; (setcdr evil-insert-state-map nil)
+  ;; (define-key evil-insert-state-map [escape] 'evil-normal-state)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
