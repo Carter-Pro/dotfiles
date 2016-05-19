@@ -111,4 +111,4 @@ alias pc="proxychains4"
 alias run="~/Algorithm/Interview/result"
 PATH=/Library/TeX/texbin:$PATH;
 export PATH
-
+export EDITOR='vim'
