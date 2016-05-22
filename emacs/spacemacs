@@ -36,7 +36,6 @@ values."
                       auto-completion-complete-with-key-sequence nil
                       auto-completion-complete-with-key-sequence-delay 0.1
                       auto-completion-private-snippets-directory nil
-                      auto-completion-enable-snippets-in-popup nil
                       auto-completion-enable-sort-by-usage t
                       :disabled-for
                       org)
@@ -62,6 +61,9 @@ values."
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
      dash
+     (ibuffer :variables
+              ibuffer-group-buffers-by 'modes)
+     games
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -360,24 +362,6 @@ you should place your code here."
 
   (add-to-list 'load-path "~/.emacs.d/lisp")
   ;; (require 'wangyi-music-mode)
-  (defun indent-buffer ()
-    "Indent the currently visited buffer."
-    (interactive)
-    reveal-in-osx-finder   It is bound to RET, a.
-    (indent-rSpacemacsegion (point-min) (point-max)))
-
-  (defun indent-region-or-buffer ()
-    "Indent a region if selected, otherwise the whole buffer."
-    (interactive)
-    (save-excursion
-      (if (region-active-p)
-          (progn
-            (indent-region (region-beginning) (region-end))
-            (message "Indented selected region."))
-        (progn
-          (indent-buffer)
-          (message "Indented buffer.")))))
-  (global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
 
   (setq-default c-default-style "k&r")
 
@@ -495,6 +479,7 @@ same directory as the org-buffer and insert a link to this file."
   ;; (define-key evil-insert-state-map "\C-a" 'beginning-of-line-text)
   ;; (define-key evil-insert-state-map "\C-e" 'end-of-line)
   (set-face-attribute 'linum nil :height 120)
+  (setq paradox-github-token "ac671e7be5819ffcb2f19a25742d709e2a1f6c96")
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
