@@ -29,6 +29,8 @@ values."
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
      markdown
+     python
+     semantic
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -479,8 +481,9 @@ same directory as the org-buffer and insert a link to this file."
   ;; (define-key evil-insert-state-map "\C-e" 'end-of-line)
   (set-face-attribute 'linum nil :height 120)
   (setq paradox-github-token "ac671e7be5819ffcb2f19a25742d709e2a1f6c96")
+  (setq fcitx-active-evil-states '(insert emacs hybrid)) ; if you use hybrid mode
   (fcitx-aggressive-setup)
-  
+  (fcitx-prefix-keys-add "M-m") ; M-m is common in Spacemacs
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
