@@ -52,6 +52,7 @@ values."
             latex-enable-folding t)
      org
      smex
+     fasd
      emoji
      (syntax-checking :variables
                       syntax-checking-enable-by-default nil
@@ -64,6 +65,7 @@ values."
      dash
      (ibuffer :variables
               ibuffer-group-buffers-by 'modes)
+     selectric
      games
      ;; version-control
      )
@@ -442,10 +444,21 @@ same directory as the org-buffer and insert a link to this file."
     (ido-find-file-in-dir (format "%s/source/" hexo-dir))
     )
 
- 
+  (defun counsel-goto-recent-directory ()
+    "Open recent directory with dired"
+    (interactive)
+    (unless recentf-mode (recentf-mode 1))
+    (let ((collection
+           (delete-dups
+            (append (mapcar 'file-name-directory recentf-list)
+                    ;; fasd history
+                    (if (executable-find "fasd")
+                        (split-string (shell-command-to-string "fasd -ld") "\n" t))))))
+      (ivy-read "directories:" collection :action 'dired)))
   (setq org-startup-with-inline-images nil)
   (require 'org-archive-subtree-hierarchical)
   (evil-leader/set-key
+    "fd" 'counsel-goto-recent-directory
     "of" 'reveal-in-osx-finder
     "op" 'org-pomodoro
     "os" 'my-org-screenshot
