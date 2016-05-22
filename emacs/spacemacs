@@ -28,7 +28,6 @@ values."
      (chinese :variables
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t)
-     python
      markdown
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -480,6 +479,8 @@ same directory as the org-buffer and insert a link to this file."
   ;; (define-key evil-insert-state-map "\C-e" 'end-of-line)
   (set-face-attribute 'linum nil :height 120)
   (setq paradox-github-token "ac671e7be5819ffcb2f19a25742d709e2a1f6c96")
+  (fcitx-aggressive-setup)
+  
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -490,6 +491,7 @@ same directory as the org-buffer and insert a link to this file."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files (quote ("~/Documents/OneDrive/org-notes")))
+ '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
  '(org-emphasis-alist
    (quote
     (("*"
@@ -507,7 +509,8 @@ same directory as the org-buffer and insert a link to this file."
     (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-mac-link)))
  '(package-selected-packages
    (quote
-    (company-auctex auctex moe-theme moe-theme-theme helm-flyspell auto-dictionary powerline org-mac-link youdao-dictionary chinese-word-at-point xterm-color toc-org smex smeargle shell-pop reveal-in-osx-finder pyvenv pytest pyenv-mode py-yapf pip-requirements pangu-spacing orgit org-repo-todo org-present org-pomodoro alert log4e gntp org-plus-contrib org-bullets multi-term mmm-mode markdown-toc markdown-mode magit-gitflow hy-mode htmlize helm-pydoc helm-gtags helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md ggtags flycheck-ycmd flycheck-pos-tip flycheck find-by-pinyin-dired fcitx evil-magit magit magit-popup git-commit with-editor eshell-prompt-extras esh-help emoji-cheat-sheet-plus disaster dash-at-point cython-mode counsel swiper ivy company-ycmd ycmd request-deferred request deferred company-statistics company-quickhelp company-emoji company-c-headers company-anaconda company cmake-mode clang-format chinese-pyim pos-tip blog-admin names ctable auto-yasnippet yasnippet anaconda-mode pythonic f ace-pinyin pinyinlib ace-jump-mode ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text monokai-theme macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (company-auctex auctex moe-theme moe-theme-theme helm-flyspell auto-dictionary powerline org-mac-link youdao-dictionary chinese-word-at-point xterm-color toc-org smex smeargle shell-pop reveal-in-osx-finder pyvenv pytest pyenv-mode py-yapf pip-requirements pangu-spacing orgit org-repo-todo org-present org-pomodoro alert log4e gntp org-plus-contrib org-bullets multi-term mmm-mode markdown-toc markdown-mode magit-gitflow hy-mode htmlize helm-pydoc helm-gtags helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md ggtags flycheck-ycmd flycheck-pos-tip flycheck find-by-pinyin-dired fcitx evil-magit magit magit-popup git-commit with-editor eshell-prompt-extras esh-help emoji-cheat-sheet-plus disaster dash-at-point cython-mode counsel swiper ivy company-ycmd ycmd request-deferred request deferred company-statistics company-quickhelp company-emoji company-c-headers company-anaconda company cmake-mode clang-format chinese-pyim pos-tip blog-admin names ctable auto-yasnippet yasnippet anaconda-mode pythonic f ace-pinyin pinyinlib ace-jump-mode ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package spacemacs-theme spaceline smooth-scrolling restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines open-junk-file neotree move-text monokai-theme macrostep lorem-ipsum linum-relative leuven-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word clean-aindent-mode buffer-move bracketed-paste auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+ '(paradox-automatically-star t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
