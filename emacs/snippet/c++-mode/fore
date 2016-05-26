@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: gulei
+# name: foreach
+# key: fore
+# --
+for (${1:auto} ${2:e} : ${3:iterator}) {
+    $0
+}

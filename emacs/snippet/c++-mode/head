@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: head
+# key: head
+# --
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
