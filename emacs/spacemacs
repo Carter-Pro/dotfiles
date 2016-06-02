@@ -24,6 +24,7 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      (c-c++ :variables
+            c-c++-enable-clang-support t
             c-c++-default-mode-for-headers 'c++-mode)
      (chinese :variables
               chinese-enable-fcitx t
@@ -67,6 +68,7 @@ values."
               ibuffer-group-buffers-by 'modes)
      selectric
      games
+     themes-megapack
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -139,11 +141,11 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         monokai
                          dracula
                          zenburn
                          solarized-dark
                          spacemacs-dark
-                         monokai
                          solarized-light
                          leuven
                          spacemacs-light
@@ -252,7 +254,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers 'relative
+   dotspacemacs-line-numbers t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -291,7 +293,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
           ("org-cn"   . "http://elpa.zilongshanren.com/org/")
           ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
   )
-
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -320,20 +321,20 @@ you should place your code here."
 
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (set-variable 'ycmd-server-command '("python" "/Users/carter/Softwares/ycmd/ycmd/"))
-  (set-variable 'ycmd-extra-conf-whitelist '("~/Github/Spacemacs-rocks/Season1/c++-project"))
+  (set-variable 'ycmd-extra-conf-whitelist '("~/Github/leveldb/*"
+                                             "~/Github/ucore_os_lab/labcodes/lab1/*"))
   (require 'company-ycmd)
   (company-ycmd-setup)
 
   (require 'flycheck-ycmd)
   (flycheck-ycmd-setup)
-
   (global-hungry-delete-mode)
 
   (defun my/open-gtd-file()
     (interactive)
     (find-file "/Users/carter/Documents/OneDrive/org-notes/gtd.org"))
   (global-set-key (kbd "<f1>") 'my/open-gtd-file)
-
+  ;; (define-key org-bullets-bullet-map [mouse-1] nil)
   (setq org-agenda-files (quote ("~/Documents/OneDrive/org-notes/gtd.org")))
 
   (setq org-capture-templates
@@ -396,9 +397,9 @@ you should place your code here."
 
   (require 'appt)
   (setq appt-time-msg-list nil)    ;; clear existing appt list
-  (setq appt-display-interval '2)  ;; warn every 5 minutes from t - appt-message-warning-time
+  (setq appt-display-interval '1)  ;; warn every 5 minutes from t - appt-message-warning-time
   (setq
-   appt-message-warning-time '4  ;; send first warning 15 minutes before appointment
+   appt-message-warning-time '2  ;; send first warning 15 minutes before appointment
    appt-display-mode-line nil     ;; don't show in the modeline
    appt-display-format 'window)   ;; pass warnings to the designated window function
   (appt-activate 1)                ;; activate appointment notification
@@ -504,7 +505,7 @@ same directory as the org-buffer and insert a link to this file."
   ;;        evil-visual-state-tag   (propertize "[Visual]" 'face '((:background "grey80" :foreground "black")))
   ;;        evil-operator-state-tag (propertize "[Operator]" 'face '((:background "purple"))))
   (setq org-ellipsis "⤵")
-  (setq org-bullets-bullet-list '("☰" "■" "▶" "●" "○"))
+  ;; (setq org-bullets-bullet-list '("☰" "■" "▶" "●" "○"))
 
   (setq ispell-program-name "/usr/local/bin/aspell")
   (setq ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))

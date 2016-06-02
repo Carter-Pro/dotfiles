@@ -101,7 +101,8 @@ alias -s gz='tar -xzvf'
 alias -s tgz='tar -xzvf'
 alias -s zip='unzip'
 alias -s bz2='tar -xjvf'
-alias g++='g++ -std=c++11 -g'
+alias g++='g++ -Wall -std=c++11 -g'
+alias gcc='gcc -Wall -g'
 alias sshserver='ssh root@121.42.160.119'
 alias sshvps='ssh root@23.105.194.141 -p 26775'
 alias sshvultr='ssh root@45.32.60.171'
@@ -109,6 +110,7 @@ alias xx-net="nohup ~/Softwares/XX-Net-2.5.1/start.sh &"
 alias aria2="aria2c --conf-path="/Users/carter/.aria2/aria2.conf" -D"
 alias pc="proxychains4"
 alias run="~/Algorithm/Interview/result"
+alias gycm='python /Users/carter/Softwares/YCM-Generator/config_gen.py'
 PATH=/Library/TeX/texbin:$PATH;
 export PATH
 export EDITOR='vim'
