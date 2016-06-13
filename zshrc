@@ -114,3 +114,5 @@ alias gycm='python /Users/carter/Softwares/YCM-Generator/config_gen.py'
 PATH=/Library/TeX/texbin:$PATH;
 export PATH
 export EDITOR='vim'
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

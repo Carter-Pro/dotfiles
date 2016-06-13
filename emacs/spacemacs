@@ -336,7 +336,7 @@ you should place your code here."
   (global-set-key (kbd "<f1>") 'my/open-gtd-file)
   ;; (define-key org-bullets-bullet-map [mouse-1] nil)
   (setq org-agenda-files (quote ("~/Documents/OneDrive/org-notes/gtd.org")))
-
+  
   (setq org-capture-templates
         '(("t" "Inbox" entry (file+headline "~/Documents/OneDrive/org-notes/gtd.org" "Inbox")
            "* TODO [#B] %?\n  %i\n"
