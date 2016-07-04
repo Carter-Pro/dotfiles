@@ -319,6 +319,7 @@ you should place your code here."
   (global-set-key (kbd "C-h f") 'counsel-describe-function)
   (global-set-key (kbd "C-h v") 'counsel-describe-variable)
 
+  (global-set-key (kbd "s-/") 'hippie-expand)
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (set-variable 'ycmd-server-command '("python" "/Users/carter/Softwares/ycmd/ycmd/"))
   (set-variable 'ycmd-extra-conf-whitelist '("~/Github/leveldb/*"
@@ -529,7 +530,7 @@ same directory as the org-buffer and insert a link to this file."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files (quote ("~/Documents/OneDrive/org-notes")))
- '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t))))
+ '(org-babel-load-languages (quote ((emacs-lisp . t) (python . t) (C . t))))
  '(org-emphasis-alist
    (quote
     (("*"
